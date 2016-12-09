@@ -21,9 +21,9 @@ class Login extends Component {
 	login() {
 		event.stopPropagation();
 
-		const url = 'http://localhost:8080/api/jsonws/user/get-current-user';
+		const liferayUrl = 'http://localhost:8080';
 
-		return basicLogin(url, this.userEl.value, this.passEl.value)
+		return basicLogin(liferayUrl, this.userEl.value, this.passEl.value)
 			.then((val) => {
 				this.emit('loginSuccess', val);
 			})
@@ -31,12 +31,9 @@ class Login extends Component {
 				this.emit('loginError', err);
 			});
 	}
-
 }
 
-Login.STATE = {
-
-};
+Login.STATE = { };
 
 Soy.register(Login, templates);
 
