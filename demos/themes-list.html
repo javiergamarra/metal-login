@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" href="../build/login.css">
+
+	<style></style>
+
+	<script src="../build/globals/login.js"></script>
+</head>
+<body>
+
+<h3>Installed themes</h3>
+<script type="text/javascript">
+	new metal.ThemesList({
+		liferayUrl: 'http://localhost:8080',
+		username: 'test@liferay.com',
+		password: 'test',
+		companyId: 20116
+	});
+</script>
+
+</body>
+</html>
