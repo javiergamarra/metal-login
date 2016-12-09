@@ -88,9 +88,7 @@
 	</style>
 
 	<div class="loginmodal-container">
-
 		<h1>Login to Your Account</h1>
-		<br>
 		<input type="text" name="user" placeholder="Username">
 		<input type="password" name="pass" placeholder="Password">
 		<input type="submit" name="login" class="login loginmodal-submit" value="Login">
@@ -101,33 +99,47 @@
 </template>
 
 <script>
-// TODO: make imports work
-// import {basicLogin} from './Services';
-
 class LoginElement extends HTMLElement {
+
 	constructor() {
 		super();
+
 		let shadowRoot = this.attachShadow({mode: 'open'});
 		const doc = document.currentScript.ownerDocument;
 		const tpl = doc.querySelector('#x-login-element-template');
 		const instance = tpl.content.cloneNode(true);
 		shadowRoot.appendChild(instance);
 
-
 		this.userEl = this.shadowRoot.querySelector('input[type="text"][name="user"]');
-		this.passEl = this.shadowRoot.querySelector('input[type="passworcd"][name="pass"]');
+		this.passEl = this.shadowRoot.querySelector('input[type="password"][name="pass"]');
 
 		const btn = this.shadowRoot.querySelector('input[type="submit"]');
 		btn.addEventListener('click', this.login.bind(this));
-
-	}
-
-	connectedCallback() {
-		console.log('LoginElement connectedCallback');
 	}
 
 	login(e) {
-		console.log('logging in...');
+
+		const user = this.userEl.value;
+		const pass = this.passEl.value;
+
+		fetch('http://localhost:8080/api/jsonws/user/get-current-user', {
+			method: 'GET',
+			headers: new Headers({
+				'Authorization': 'Basic ' + btoa(user + ':' + pass)
+			})
+		})
+		.then(val => {
+
+			if (val.status !== 200) {
+				throw new Error(val.statusText);
+			}
+
+			return val.json();
+		})
+		.then(val => {
+			alert(val.greeting);
+		})
+		.catch(err => console.error(err))
 	}
 }
 window.customElements.define('login-element', LoginElement);
