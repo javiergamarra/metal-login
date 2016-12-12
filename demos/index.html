@@ -93,15 +93,14 @@
 	</style>
 
 	<script src="../build/globals/login.js"></script>
-	<!--<script src="../build/globals/LoginInheritedLiferay.js"></script>-->
 </head>
 <body>
 
 <script type="text/javascript">
 
-		let wedeploy = new metal.LiferayLogin();
-		let component = new metal.LoginInjected({backend: wedeploy});
-
+		let component = new metal.Login();
+//		let wedeploy = new metal.LiferayLogin();
+//		let component = new metal.LoginInjected({backend: wedeploy});
 //	let component = new metal.LoginInheritedLiferay();
 
 	component.eventHandler_.addListener('loginFailed', err => console.log('Error'));

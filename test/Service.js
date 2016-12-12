@@ -4,16 +4,15 @@ import {basicLogin} from '../src/Services';
 
 
 describe('basicLogin', function() {
-
-	beforeEach(function () {
+	beforeEach(function() {
 		this.xhr = sinon.useFakeXMLHttpRequest();
 		var requests = this.requests = [];
-		this.xhr.onCreate = function (xhr) {
+		this.xhr.onCreate = function(xhr) {
 			requests.push(xhr);
 		};
 	});
 
-	afterEach(function () {
+	afterEach(function() {
 		this.xhr.restore();
 	});
 
@@ -27,11 +26,11 @@ describe('basicLogin', function() {
 			});
 	});
 
-	it('should resolve request succeeds', function (done) {
+	it('should resolve request succeeds', function(done) {
 		let resolve = sinon.spy();
 
 		basicLogin('/login', 'test', 'test')
-			.then(function () {
+			.then(function() {
 				resolve();
 				assert.deepEqual(resolve.called, true);
 				done();
