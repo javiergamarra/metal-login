@@ -1,3 +1,5 @@
+'use strict';
+
 import Ajax from 'metal-ajax';
 import MultiMap from 'metal-multimap';
 
@@ -9,21 +11,21 @@ import MultiMap from 'metal-multimap';
  * @return {Promise} a promise
  */
 function basicLogin(url = '', username = '', password = '') {
-  return new Promise(function(resolve, reject) {
-    if (!url || !username || !password) {
-      reject(new Error('a url, username and password are required'));
-    }
+	return new Promise(function(resolve, reject) {
+		if (!url || !username || !password) {
+			reject(new Error('a url, username and password are required'));
+		}
 
-    const optHeaders = new MultiMap();
-    optHeaders.add('Authorization', 'Basic ' + btoa(username + ':' + password));
+		const optHeaders = new MultiMap();
+		optHeaders.add('Authorization', 'Basic ' + btoa(username + ':' + password));
 
-    return Ajax.request(url, 'GET', null, optHeaders)
-      .then(function(val) {
-        resolve(val);
-      }, function(err) {
-        reject(err);
-      });
-  });
+		return Ajax.request(url, 'GET', null, optHeaders)
+			.then(function(val) {
+				resolve(val);
+			}, function(err) {
+				reject(err);
+			});
+	});
 }
 
 export {basicLogin};

@@ -6,27 +6,22 @@ import Soy from 'metal-soy';
 
 class BaseLogin extends Component {
 
-  created() {
-  }
-
-  detached() {
-  }
-
-  login() {
+	login() {
 		// FIXME this doesn't allow reuse
-    const userName = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
+		const userName = document.getElementById('username').value;
+		const password = document.getElementById('password').value;
 
-    this.logic(userName, password).then(x => {
-      this.emit('loginSuccess', x);
-    }).catch(err => {
-      this.emit('loginFailed', err);
-    });
-  }
+		this.logic(userName, password).then(x => {
+			this.emit('loginSuccess', x);
+		}).catch(err => {
+			this.emit('loginFailed', err);
+		});
+	}
 
-  logic(userName, password) {
-
-  }
+	logic(userName, password) {
+		console.log(userName);
+		console.log(password);
+	}
 }
 
 BaseLogin.STATE = {};
