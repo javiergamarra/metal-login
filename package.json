@@ -31,11 +31,16 @@
     "metal-ajax": "^2.0.3",
     "metal-dom": "latest",
     "metal-multimap": "^2.0.0",
-    "metal-soy": "^2.0.0"
+    "metal-soy": "^2.0.0",
+    "wedeploy": "^1.0.7",
+    "metal-events": "latest",
+    "metal-component": "latest"
   },
   "devDependencies": {
     "babel-cli": "^6.4.5",
     "babel-preset-metal": "^4.0.0",
+    "eslint": "^3.12.0",
+    "eslint-config-google": "^0.7.1",
     "gulp": "^3.8.11",
     "gulp-metal": "^1.0.0",
     "http-server": "^0.9.0",
