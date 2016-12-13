@@ -70,7 +70,6 @@ describe('Services', function() {
 				}, null);
 
 			this.requests[0].respond(200);
-
 		});
 	});
 });

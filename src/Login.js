@@ -5,7 +5,7 @@ import Component from 'metal-component';
 import Soy from 'metal-soy';
 import dom from 'metal-dom';
 
-import {basicLogin} from './Services';
+import LiferayLoginCommand from './commands/LiferayLoginCommand';
 
 class Login extends Component {
 
@@ -21,13 +21,13 @@ class Login extends Component {
 	login() {
 		event.stopPropagation();
 
-		const liferayUrl = 'http://localhost:8080';
+		const cmd = new LiferayLoginCommand(this.userEl.value, this.passEl.value);
 
-		return basicLogin(liferayUrl, this.userEl.value, this.passEl.value)
-			.then((val) => {
-				this.emit('loginSuccess', val);
+		return cmd.execute()
+			.then((res) => {
+				this.emit('loginSuccess', res.responseText);
 			})
-			.catch((err) => {
+			.catch(err => {
 				this.emit('loginError', err);
 			});
 	}

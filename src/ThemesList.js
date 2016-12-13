@@ -6,68 +6,48 @@ import Soy from 'metal-soy';
 import dom from 'metal-dom';
 import List from 'metal-list';
 
-import {getThemes} from './Services';
+import LiferayGetThemesCommand from './commands/LiferayGetThemesCommand';
 
 class ThemesList extends Component {
 
 	constructor(opt_config, opt_parentElement) {
 		super(opt_config, opt_parentElement);
 
-		this.liferayUrl = opt_config.liferayUrl;
 		this.username = opt_config.username;
 		this.password = opt_config.password;
 		this.companyId = opt_config.companyId;
+	}
 
-		getThemes(this.liferayUrl, this.username, this.password, this.companyId)
+	attached() {
+		this.list = new List({element: this.element});
+	}
+
+	getThemes() {
+		const cmd = new LiferayGetThemesCommand(this.username, this.password, this.companyId);
+
+		return cmd.execute()
 			.then((val) => {
-
 				const themes = JSON.parse(val.responseText);
 				let html = '';
 				let len = themes.length;
 
 				for (let i = 0; i < len; i++) {
-					html += '<hr>';
-					html += '<p><strong>Name</strong>: ';
-					html += themes[i].name;
-					html += '</p>';
-
-					html += '<p><strong>Theme ID</strong>: ';
-					html += themes[i].themeId;
-					html += '</p>';
-
-					html += '<p><strong>Context path</strong>: ';
-					html += themes[i].contextPath;
-					html += '</p>';
-
-					html += '<p><strong>Control panel theme</strong>: ';
-					html += themes[i].controlPanelTheme;
-					html += '</p>';
-
-					html += '<p><strong>Device</strong>: ';
-					html += themes[i].device;
-					html += '</p>';
-
-					html += '<p><strong>Images path</strong>: ';
-					html += themes[i].imagesPath;
-					html += '</p>';
-
-					html += '<p><strong>JavaScript path</strong>: ';
-					html += themes[i].javaScriptPath;
-					html += '</p>';
-
-					html += '<p><strong>Static resource path</strong>: ';
-					html += themes[i].staticResourcePath;
-					html += '</p>';
+					html += `<hr>\n
+						<p><strong>Name</strong>: ${themes[i].name}</p>
+						<p><strong>Theme ID</strong>: ${themes[i].themeId}</p>
+						<p><strong>Context Path</strong>: ${themes[i].contextPath}</p>
+						<p><strong>Control panel theme</strong>: ${themes[i].controlPanelTheme}</p>
+						<p><strong>Device</strong>: ${themes[i].device}</p>
+						<p><strong>Images path</strong>: ${themes[i].imagesPath}</p>
+						<p><strong>JavaScript path</strong>: ${themes[i].javaScriptPath}</p>
+						<p><strong>Static resource path</strong>: ${themes[i].staticResourcePath}</p>`;
 				}
 				this.list.itemsHtml = html;
+				this.emit('fetchSuccess', val);
 		})
 		.catch((err) => {
 			this.emit('fetchError', err);
 		});
-	}
-
-	attached() {
-		this.list = new List({element: this.element});
 	}
 }
 

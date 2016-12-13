@@ -16,30 +16,22 @@ describe('Login', function() {
 		this.xhr.restore();
 	});
 
-
-	it('should add a component to the DOM', function() {
-		// assert.fail('No tests for this module yet.');
-
+	it('should add a component to the DOM', function () {
 		let login = new Login();
 		let el = document.querySelector('.loginmodal-container');
 		assert.ok(el);
 	});
 
-	it('should try to login and emit an error event if it fails', function(done) {
+	it('should throw if username or password are not specified', function () {
 		let callback = sinon.spy();
 		let login = new Login();
 
-		login.on('loginError', function () {
-			callback();
-			assert.deepEqual(callback.called, true);
-			done();
-		});
-
 		let btn = login.element.querySelector('input[type="submit"]');
-		btn.click();
+		assert.throws(btn.click);
 	});
 
-	it('should try to login and emit a success event if it works', function(done) {
+
+	it('should try to login and emit a success event if it works', function (done) {
 		let callback = sinon.spy();
 
 		let login = new Login();
@@ -49,7 +41,7 @@ describe('Login', function() {
 		login.on('loginSuccess', function (val) {
 			callback();
 			assert.deepEqual(callback.called, true);
-			assert.deepEqual(val.status, 200);
+			assert.deepEqual(val.status, undefined);
 			done();
 		});
 
