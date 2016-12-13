@@ -25,7 +25,8 @@ class Login extends Component {
 
 		return cmd.execute()
 			.then((res) => {
-				this.emit('loginSuccess', res.responseText);
+				const name = res.status === 200 ? 'loginSuccess' : 'loginError';
+				this.emit(name, res.responseText);
 			})
 			.catch(err => {
 				this.emit('loginError', err);

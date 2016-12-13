@@ -96,7 +96,14 @@
 </head>
 <body>
 <script type="text/javascript">
-	new metal.Login();
+	const login = new metal.Login();
+	login.on('loginSuccess', function (body) {
+		const user = JSON.parse(body);
+		alert(user.greeting);
+	});
+	login.on('loginError', function (err) {
+		console.error(err);
+	});
 </script>
 </body>
 </html>
