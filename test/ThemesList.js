@@ -4,19 +4,19 @@ import ThemesList from '../src/ThemesList';
 
 describe('ThemesList', function() {
 
-	beforeEach(function () {
+	beforeEach(function() {
 		this.xhr = sinon.useFakeXMLHttpRequest();
 		var requests = this.requests = [];
-		this.xhr.onCreate = function (xhr) {
+		this.xhr.onCreate = function(xhr) {
 			requests.push(xhr);
 		};
 	});
 
-	afterEach(function () {
+	afterEach(function() {
 		this.xhr.restore();
 	});
 
-	it('should try to login and emit an error event if it fails', function () {
+	it('should try to login and emit an error event if it fails', function() {
 		let callback = sinon.spy();
 
 		function createList() {
@@ -26,12 +26,16 @@ describe('ThemesList', function() {
 		assert.throws(createList);
 	});
 
-	it('should try to login and emit a success event if it succeeds', function (done) {
+	it('should try to login and emit a success event if it succeeds', function(done) {
 		let callback = sinon.spy();
 
-		let themesList = new ThemesList({username: 'test', password: 'test', companyId: 2013});
+		let themesList = new ThemesList({
+			username: 'test',
+			password: 'test',
+			companyId: 2013
+		});
 
-		themesList.on('fetchSuccess', function () {
+		themesList.on('fetchSuccess', function() {
 			callback();
 		});
 
@@ -44,8 +48,8 @@ describe('ThemesList', function() {
 			});
 
 		this.requests[0].respond(200, {
-				"Content-Type": "application/json"
-			},
+			"Content-Type": "application/json"
+		},
 			JSON.stringify([
 				{
 					name: 'Test theme',
@@ -61,12 +65,16 @@ describe('ThemesList', function() {
 		);
 	});
 
-	it('should try to login and emit a fetchError event if it fails', function (done) {
+	it('should try to login and emit a fetchError event if it fails', function(done) {
 		let callback = sinon.spy();
 
-		let themesList = new ThemesList({username: 'test', password: 'test', companyId: 2013});
+		let themesList = new ThemesList({
+			username: 'test',
+			password: 'test',
+			companyId: 2013
+		});
 
-		themesList.on('fetchError', function () {
+		themesList.on('fetchError', function() {
 			callback();
 		});
 

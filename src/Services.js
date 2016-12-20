@@ -1,5 +1,5 @@
 import Ajax from 'metal-ajax';
-import MultiMap  from 'metal-multimap';
+import MultiMap from 'metal-multimap';
 
 
 const LIFERAY_URL = 'http://localhost:8080';
@@ -13,7 +13,7 @@ const LIFERAY_URL = 'http://localhost:8080';
 function basicLogin(liferayUrl = LIFERAY_URL, username = '', password = '') {
 
 
-	return new Promise(function (resolve, reject)  {
+	return new Promise(function(resolve, reject) {
 		if (!liferayUrl || !username || !password) {
 			reject(new Error('a url, username and password are required'));
 		}
@@ -23,9 +23,9 @@ function basicLogin(liferayUrl = LIFERAY_URL, username = '', password = '') {
 		opt_headers.add('Authorization', 'Basic ' + btoa(username + ':' + password));
 
 		return Ajax.request(url, 'GET', null, opt_headers)
-			.then(function (val) {
+			.then(function(val) {
 				resolve(val);
-			}, function (err) {
+			}, function(err) {
 				reject(err);
 			});
 	});
@@ -33,7 +33,7 @@ function basicLogin(liferayUrl = LIFERAY_URL, username = '', password = '') {
 }
 
 function getThemes(liferayUrl = LIFERAY_URL, username = '', password = '', companyId = 0) {
-	return new Promise(function (resolve, reject)  {
+	return new Promise(function(resolve, reject) {
 		if (!liferayUrl || !username || !password) {
 			reject(new Error('a liferay url, username and password are required'));
 		}
@@ -46,12 +46,12 @@ function getThemes(liferayUrl = LIFERAY_URL, username = '', password = '', compa
 		opt_params.add('companyId', companyId);
 
 		return Ajax.request(url, 'GET', null, opt_headers, opt_params)
-			.then(function (val) {
+			.then(function(val) {
 				resolve(val);
-			}, function (err) {
+			}, function(err) {
 				reject(err);
 			});
 	});
 }
 
-export {basicLogin, getThemes};
+export { basicLogin, getThemes };

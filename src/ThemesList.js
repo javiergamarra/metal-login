@@ -19,7 +19,9 @@ class ThemesList extends Component {
 	}
 
 	attached() {
-		this.list = new List({element: this.element});
+		this.list = new List({
+			element: this.element
+		});
 	}
 
 	getThemes() {
@@ -44,10 +46,10 @@ class ThemesList extends Component {
 				}
 				this.list.itemsHtml = html;
 				this.emit('fetchSuccess', val);
-		})
-		.catch((err) => {
-			this.emit('fetchError', err);
-		});
+			})
+			.catch((err) => {
+				this.emit('fetchError', err);
+			});
 	}
 }
 

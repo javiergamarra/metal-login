@@ -1,11 +1,7 @@
 import Ajax from 'metal-ajax';
-import MultiMap  from 'metal-multimap';
+import MultiMap from 'metal-multimap';
 
-import {
-	LIFERAY_PATHS,
-	LIFERAY_URL,
-	LiferayCommand
-} from './LiferayCommand';
+import { LIFERAY_PATHS, LIFERAY_URL, LiferayCommand } from './LiferayCommand';
 
 
 class LiferayGetThemesCommand extends LiferayCommand {
@@ -31,7 +27,8 @@ class LiferayGetThemesCommand extends LiferayCommand {
 
 		return Ajax.request(this.url, 'GET', null, opt_headers, opt_params);
 	}
-};
+}
+;
 
 export default LiferayGetThemesCommand;
 

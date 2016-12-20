@@ -4,25 +4,25 @@ import Login from '../src/Login';
 
 describe('Login', function() {
 
-	beforeEach(function () {
+	beforeEach(function() {
 		this.xhr = sinon.useFakeXMLHttpRequest();
 		var requests = this.requests = [];
-		this.xhr.onCreate = function (xhr) {
+		this.xhr.onCreate = function(xhr) {
 			requests.push(xhr);
 		};
 	});
 
-	afterEach(function () {
+	afterEach(function() {
 		this.xhr.restore();
 	});
 
-	it('should add a component to the DOM', function () {
+	it('should add a component to the DOM', function() {
 		let login = new Login();
 		let el = document.querySelector('.loginmodal-container');
 		assert.ok(el);
 	});
 
-	it('should throw if username or password are not specified', function () {
+	it('should throw if username or password are not specified', function() {
 		let callback = sinon.spy();
 		let login = new Login();
 
@@ -31,14 +31,14 @@ describe('Login', function() {
 	});
 
 
-	it('should try to login and emit a success event if it works', function (done) {
+	it('should try to login and emit a success event if it works', function(done) {
 		let callback = sinon.spy();
 
 		let login = new Login();
 		login.userEl.value = 'test';
 		login.passEl.value = 'test';
 
-		login.on('loginSuccess', function (val) {
+		login.on('loginSuccess', function(val) {
 			callback();
 			assert.deepEqual(callback.called, true);
 			assert.deepEqual(val.status, undefined);
