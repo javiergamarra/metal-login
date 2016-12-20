@@ -49,6 +49,10 @@
 			box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
 		}
 
+		.loginmodal-container input[type=submit][disabled] {
+			background-color: #eee;
+		}
+
 		.loginmodal-submit {
 			/* border: 1px solid #3079ed; */
 			border: 0px;
@@ -68,6 +72,7 @@
 			background-color: #357ae8;
 			/* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
 		}
+
 
 		.loginmodal-container a {
 			text-decoration: none;
@@ -89,6 +94,10 @@
 (function () {
 	class MetalLoginElement extends HTMLElement {
 
+		static get observedAttributes() {
+			return ['disabled'];
+		}
+
 		constructor() {
 			super();
 
@@ -101,9 +110,11 @@
 			shadowRoot.appendChild(instance);
 
 			// Add the "metal" component
-			let login = new metal.Login({}, shadowRoot);
-			login.on('*', this.emit.bind(this));
-			shadowRoot.appendChild(login.element);
+			this.login = new metal.Login({
+				disabled: this.getAttribute('disabled')
+			}, shadowRoot);
+			this.login.on('*', this.emit.bind(this));
+			shadowRoot.appendChild(this.login.element);
 		}
 
 		emit(...data) {
@@ -112,6 +123,9 @@
 			this.dispatchEvent(evt);
 		}
 
+		attributeChangedCallback(attrName, oldVal, newVal) {
+			this.login[attrName] = newVal;
+		}
 	}
 	window.customElements.define('metal-login', MetalLoginElement);
 }());

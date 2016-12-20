@@ -2,15 +2,14 @@
 
 /**
  * This renders the component's whole content.
+ * @param? disabled
  */
 {template .render}
 	<div class="loginmodal-container">
-
 		<h1>Login to Your Account</h1>
-		<br>
-			<input type="text" name="user" placeholder="Username">
-			<input type="password" name="pass" placeholder="Password">
-			<input type="submit" name="login" class="login loginmodal-submit" value="Login" onClick="login">
+		<input type="text" name="user" placeholder="Username">
+		<input type="password" name="pass" placeholder="Password">
+		<input type="submit" name="login" class="login loginmodal-submit" value="Login" {if $disabled}disabled="{$disabled}"{/if}>
 		<div class="login-help">
 			<a href="#">Register</a> - <a href="#">Forgot Password</a>
 		</div>

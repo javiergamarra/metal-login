@@ -1,11 +1,12 @@
 'use strict';
 
-import templates from './Login.soy.js';
 import Component from 'metal-component';
 import Soy from 'metal-soy';
+import core from 'metal';
 import dom from 'metal-dom';
 
 import LiferayLoginCommand from './commands/LiferayLoginCommand';
+import templates from './Login.soy.js';
 
 class Login extends Component {
 
@@ -13,6 +14,8 @@ class Login extends Component {
 		this.userEl = this.element.querySelector('input[type="text"][name="user"]');
 		this.passEl = this.element.querySelector('input[type="password"][name="pass"]');
 		this.loginBtn = this.element.querySelector('input[type="submit"][name="login"]');
+		dom.on(this.userEl, 'blur', this.checkIfCanEnable.bind(this));
+		dom.on(this.passEl, 'blur', this.checkIfCanEnable.bind(this));
 		dom.on(this.loginBtn, 'click', this.login.bind(this));
 	}
 
@@ -20,7 +23,6 @@ class Login extends Component {
 		event.stopPropagation();
 
 		const cmd = new LiferayLoginCommand(this.userEl.value, this.passEl.value);
-
 		return cmd.execute()
 			.then((res) => {
 				const name = res.status === 200 ? 'loginSuccess' : 'loginError';
@@ -30,9 +32,24 @@ class Login extends Component {
 				this.emit('loginError', err);
 			});
 	}
+
+	checkIfCanEnable(e) {
+		if (this.userEl.value && this.passEl.value) {
+			this.disabled = '';
+			this.loginBtn.removeAttribute('disabled');
+		} else {
+			this.disabled = 'disabled';
+		}
+	}
+
 }
 
-Login.STATE = { };
+Login.STATE = {
+	disabled: {
+		value: '',
+		validator: core.isString
+	}
+};
 
 Soy.register(Login, templates);
 
