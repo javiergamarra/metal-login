@@ -9,13 +9,11 @@ import LiferayLoginCommand from './commands/LiferayLoginCommand';
 
 class Login extends Component {
 
-	created() {
-
-	}
-
 	attached() {
 		this.userEl = this.element.querySelector('input[type="text"][name="user"]');
 		this.passEl = this.element.querySelector('input[type="password"][name="pass"]');
+		this.loginBtn = this.element.querySelector('input[type="submit"][name="login"]');
+		dom.on(this.loginBtn, 'click', this.login.bind(this));
 	}
 
 	login() {

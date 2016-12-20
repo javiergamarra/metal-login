@@ -4,14 +4,32 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+	<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" href="../build/login.css">
+
+	<script src="../build/globals/login.js"></script>
+
 	<!-- webcomponent dependencies -->
 	<script src="../node_modules/webcomponents.js/webcomponents.js"></script>
-	<link rel="import" href="../src/login-element.html">
-
+	<link rel="import" href="../src/elements/metal-login.html">
 </head>
 <body>
 
-<login-element></login-element>
+<metal-login id="metal-login"></metal-login>
+<script>
+	window.addEventListener('load', () => {
+		const el = document.getElementById('metal-login');
+
+		const showResponse = e => {
+			const data = JSON.parse(e.detail);
+			const val = data.greeting ? data.greeting : data.exception ? data.exception : 'Sorry, an error occurred';
+			alert(val);
+		};
+
+		el.addEventListener('loginSuccess', showResponse);
+		el.addEventListener('loginError', showResponse);
+	});
+</script>
 
 </body>
 </html>
