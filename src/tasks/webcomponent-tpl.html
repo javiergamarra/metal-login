@@ -1,40 +1,39 @@
-<template id="login-element-template">
+<template id="<%= templateId %>">
+
 </template>
 
 <script>
 (function () {
-	class MetalLoginElement extends HTMLElement {
-
-		static get observedAttributes() {
-			return this.observedAttrs;
-		}
+	class <%= elementName %> extends HTMLElement {
 
 		constructor() {
 			super();
 
 			let shadowRoot = this.attachShadow({mode: 'open'});
-			const doc = document.currentScript.ownerDocument;
+			const doc = document.currentScript.ownerDocument
 
+			// Get our template
 			if (doc) {
-				const tpl = doc.querySelector('#x-login-template');
+				const tpl = doc.querySelector(<%= templateId %>);
 				if (tpl && tpl.content) {
 					const instance = tpl.content.cloneNode(true);
 					shadowRoot.appendChild(instance);
 				}
 			}
 
-			const stateKeys = Object.keys(metal.State.getStateStatic(metal.Login));
-			const opts = {};
+			const stateKeys = Object.keys(<%= namespace %>.State.getStateStatic(<%= namespace %>.<%= metalId %>));
+			let opts = {};
 			for (let i = 0, l = stateKeys.length; i < l; i++) {
 				opts[stateKeys[i]] = this.getAttribute(stateKeys[i]);
 			}
 			this.observedAttrs = stateKeys;
 
-			// Add the "metal" component
-			this.login = new metal.Login(opts, shadowRoot);
+			this.component = new <%= namespace %>.<%= metalId %>(opts, shadowRoot);
+			this.component.on('*', this.emit.bind(this));
+		}
 
-			this.login.on('*', this.emit.bind(this));
-			// shadowRoot.appendChild(this.login.element);
+		static get observedAttributes() {
+			return this.observerdAttrs;
 		}
 
 		emit(...data) {
@@ -44,9 +43,11 @@
 		}
 
 		attributeChangedCallback(attrName, oldVal, newVal) {
-			this.login[attrName] = newVal;
+			this.component[attrName] = newVal;
 		}
 	}
-	window.customElements.define('metal-login', MetalLoginElement);
+
+	window.customElements.define(<%= tagName %>, <%= elementName %>);
+
 }());
 </script>
