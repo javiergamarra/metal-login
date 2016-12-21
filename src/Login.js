@@ -8,6 +8,7 @@ import dom from 'metal-dom';
 import LiferayLoginCommand from './commands/LiferayLoginCommand';
 import templates from './Login.soy.js';
 
+
 class Login extends Component {
 
 	attached() {

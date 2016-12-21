@@ -1,9 +1,8 @@
 'use strict';
 
-import Login from '../src/Login';
+import Login from '../src/LoginInjected';
 
 describe('Login', function() {
-
 	beforeEach(function() {
 		this.xhr = sinon.useFakeXMLHttpRequest();
 		var requests = this.requests = [];
@@ -25,6 +24,12 @@ describe('Login', function() {
 	it('should throw if username or password are not specified', function() {
 		let callback = sinon.spy();
 		let login = new Login();
+
+		login.on('loginError', function() {
+			callback();
+			assert.deepEqual(callback.called, true);
+			done();
+		});
 
 		let btn = login.element.querySelector('input[type="submit"]');
 		assert.throws(btn.click);

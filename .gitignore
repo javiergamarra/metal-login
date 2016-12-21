@@ -4,7 +4,7 @@ coverage
 node_modules
 tmp
 lib
-.idea/*
 **/*.soy.js
 *.log
 .vscode
+.idea
