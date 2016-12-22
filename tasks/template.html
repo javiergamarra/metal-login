@@ -1,0 +1,53 @@
+<template id="<%= templateId %>">
+
+</template>
+
+<script>
+(function () {
+	class <%= elementName %> extends HTMLElement {
+
+		constructor() {
+			super();
+
+			let shadowRoot = this.attachShadow({mode: 'open'});
+			const doc = document.currentScript.ownerDocument;
+
+			if (doc) {
+				const tpl = doc.querySelector('<%= templateId %>');
+				if (tpl && tpl.content) {
+					const instance = tpl.content.cloneNode(true);
+					shadowRoot.appendChild(instance);
+				}
+			}
+
+			const stateKeys = Object.keys(<%= namespace %>.State.getStateStatic(<%= namespace %>.<%= metalId %>));
+			let opts = {};
+			for (let i = 0, l = stateKeys.length; i < l; i++) {
+				opts[stateKeys[i]] = this.getAttribute(stateKeys[i]);
+			}
+
+			this.observedAttrs = stateKeys;
+
+			this.component = new <%= namespace %>.<%= metalId %>(opts, shadowRoot);
+			this.component.on('*', this.emit.bind(this));
+		}
+
+		static get observedAttributes() {
+			return this.observerdAttrs;
+		}
+
+		emit(...data) {
+			let originalEvt = data.pop();
+			const evt = new CustomEvent(originalEvt.type, {detail: data});
+			this.dispatchEvent(evt);
+		}
+
+		attributeChangedCallback(attrName, oldVal, newVal) {
+			this.component[attrName] = newVal;
+		}
+	}
+
+	window.customElements.define('<%= tagName %>', <%= elementName %>);
+
+}());
+</script>

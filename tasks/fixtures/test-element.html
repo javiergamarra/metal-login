@@ -1,0 +1,53 @@
+<template id="test-element-template">
+
+</template>
+
+<script>
+(function () {
+	class TestElement extends HTMLElement {
+
+		constructor() {
+			super();
+
+			let shadowRoot = this.attachShadow({mode: 'open'});
+			const doc = document.currentScript.ownerDocument;
+
+			if (doc) {
+				const tpl = doc.querySelector('test-element-template');
+				if (tpl && tpl.content) {
+					const instance = tpl.content.cloneNode(true);
+					shadowRoot.appendChild(instance);
+				}
+			}
+
+			const stateKeys = Object.keys(metal.State.getStateStatic(metal.Test));
+			let opts = {};
+			for (let i = 0, l = stateKeys.length; i < l; i++) {
+				opts[stateKeys[i]] = this.getAttribute(stateKeys[i]);
+			}
+
+			this.observedAttrs = stateKeys;
+
+			this.component = new metal.Test(opts, shadowRoot);
+			this.component.on('*', this.emit.bind(this));
+		}
+
+		static get observedAttributes() {
+			return this.observerdAttrs;
+		}
+
+		emit(...data) {
+			let originalEvt = data.pop();
+			const evt = new CustomEvent(originalEvt.type, {detail: data});
+			this.dispatchEvent(evt);
+		}
+
+		attributeChangedCallback(attrName, oldVal, newVal) {
+			this.component[attrName] = newVal;
+		}
+	}
+
+	window.customElements.define('metal-test', TestElement);
+
+}());
+</script>

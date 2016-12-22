@@ -21,6 +21,7 @@
     "prepublish": "gulp soy && npm run compile",
     "start": "http-server . -p 4000",
     "test": "gulp test",
+    "test:tasks": "mocha tasks/*.js",
     "watch": "gulp build:watch"
   },
   "keywords": [
@@ -48,6 +49,7 @@
     "gulp-util": "^3.0.7",
     "http-server": "^0.9.0",
     "metal-karma-config": "^2.1.1",
+    "stream-assert": "^2.0.3",
     "vinyl": "^2.0.1",
     "wedeploy": "^1.0.7"
   }
