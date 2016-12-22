@@ -11,7 +11,7 @@ metal.registerTasks({
 var tasks = require('./tasks');
 
 tasks.register({
-	src: ['src/*.js', '!src/*.soy.js'],
+	src: 'src/Login.js',
 	output: 'tmp'
 });
 
