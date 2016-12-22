@@ -1,4 +1,4 @@
-Gulp task to generate Wecomponents.
+Gulp task to generate Webcomponents.
 
 For the moment, the files are placed in this directory
 because they don't need to be transpiled.
