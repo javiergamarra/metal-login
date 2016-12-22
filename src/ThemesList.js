@@ -3,7 +3,6 @@
 import templates from './ThemesList.soy.js';
 import Component from 'metal-component';
 import Soy from 'metal-soy';
-import dom from 'metal-dom';
 import List from 'metal-list';
 
 import LiferayGetThemesCommand from './commands/LiferayGetThemesCommand';

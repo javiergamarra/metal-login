@@ -23,7 +23,7 @@ class LiferayLoginCommand extends LiferayCommand {
 		return Ajax.request(this.url, 'GET', null, opt_headers);
 	}
 }
-;
+
 
 export default LiferayLoginCommand;
 

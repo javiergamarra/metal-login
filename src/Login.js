@@ -34,7 +34,7 @@ class Login extends Component {
 			});
 	}
 
-	checkIfCanEnable(e) {
+	checkIfCanEnable() {
 		if (this.userEl.value && this.passEl.value) {
 			this.disabled = '';
 			this.loginBtn.removeAttribute('disabled');

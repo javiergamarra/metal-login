@@ -28,7 +28,7 @@ class LiferayGetThemesCommand extends LiferayCommand {
 		return Ajax.request(this.url, 'GET', null, opt_headers, opt_params);
 	}
 }
-;
+
 
 export default LiferayGetThemesCommand;
 

@@ -16,12 +16,12 @@ describe('Login', function() {
 	});
 
 	it('should add a component to the DOM', function() {
-		let login = new Login();
+		new Login();
 		let el = document.querySelector('.loginmodal-container');
 		assert.ok(el);
 	});
 
-	it('should throw if username or password are not specified', function() {
+	it('should throw if username or password are not specified', function(done) {
 		let callback = sinon.spy();
 		let login = new Login();
 

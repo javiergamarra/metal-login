@@ -17,7 +17,6 @@ describe('ThemesList', function() {
 	});
 
 	it('should try to login and emit an error event if it fails', function() {
-		let callback = sinon.spy();
 
 		function createList() {
 			return new ThemesList();
@@ -40,7 +39,7 @@ describe('ThemesList', function() {
 		});
 
 		themesList.getThemes()
-			.then((val) => {
+			.then(() => {
 				assert.deepEqual(callback.called, true);
 				assert.ok(document.querySelector('.list'));
 				assert.ok(themesList.list.listHTML !== '');
@@ -48,7 +47,7 @@ describe('ThemesList', function() {
 			});
 
 		this.requests[0].respond(200, {
-			"Content-Type": "application/json"
+			'Content-Type': 'application/json'
 		},
 			JSON.stringify([
 				{
@@ -79,7 +78,7 @@ describe('ThemesList', function() {
 		});
 
 		themesList.getThemes()
-			.then((val) => {
+			.then(() => {
 				assert.deepEqual(callback.called, true);
 				done();
 			});
