@@ -44,12 +44,15 @@
     "eslint": "^3.12.0",
     "eslint-config-google": "^0.7.1",
     "gulp": "^3.9.1",
+    "gulp-crisper": "^1.1.0",
     "gulp-metal": "^1.9.15",
     "gulp-util": "^3.0.7",
+    "gulp-vulcanize": "^6.1.0",
     "http-server": "^0.9.0",
     "metal-karma-config": "^2.1.1",
     "stream-assert": "^2.0.3",
     "vinyl": "^2.0.1",
+    "vulcanize": "^1.15.2",
     "wedeploy": "^1.0.7"
   }
 }
